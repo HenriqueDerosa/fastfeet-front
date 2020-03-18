@@ -6,6 +6,7 @@
   FastFeet web
 </h3>
 
+<p align="center">... IN PROGRESS ...</p>
 <p align="center">Feito para conclusão do Bootcamp GoStack 🎓</p>
 
 <p align="center">
