@@ -28,7 +28,7 @@ export const Content = styled.div`
       color: #7159c1;
 
       &:not(first-child) {
-        padding-right: 10px;
+        padding-right: 20px;
       }
     }
   }
@@ -53,8 +53,9 @@ export const Profile = styled.div`
       color: #666666;
     }
 
-    a {
-      display: block;
+    button {
+      text-align: right;
+      border: 0;
       margin-top: 2px;
       font-size: 14px;
       color: #de3b3b;

@@ -11,6 +11,7 @@ export const Container = styled.div`
     display: flex;
     align-self: left;
     align-items: center;
+    margin-bottom: 34px;
 
     button {
       border: 0;
@@ -27,13 +28,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-  }
-
-  ul {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 15px;
-    margin-top: 30px;
+    align-items: center;
   }
 `
 
