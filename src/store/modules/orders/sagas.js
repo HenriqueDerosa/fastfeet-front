@@ -4,6 +4,7 @@ import { toast } from 'react-toastify'
 import api from '~/services/api'
 
 import { getOrdersSuccess } from './actions'
+import { GENERIC_ERROR_MESSAGE } from '~/utils/constants'
 
 export function* getOrdersRequest() {
   try {
@@ -11,7 +12,7 @@ export function* getOrdersRequest() {
     const orders = response.data
     yield put(getOrdersSuccess(orders))
   } catch (err) {
-    toast.error('Ocorreu um erro')
+    toast.error(GENERIC_ERROR_MESSAGE)
   }
 }
 

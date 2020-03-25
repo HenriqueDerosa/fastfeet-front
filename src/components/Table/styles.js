@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { darken } from 'polished'
 
 export default styled.table`
   border-collapse: separate;
@@ -14,6 +15,8 @@ export default styled.table`
 
   tbody {
     > tr {
+      transition: background 0.1s;
+
       height: 64px;
 
       background: white;
@@ -25,6 +28,10 @@ export default styled.table`
       > td:last-child {
         border-top-right-radius: 4px;
         border-bottom-right-radius: 4px;
+      }
+
+      &:hover {
+        background: ${darken(0.01, 'white')};
       }
     }
   }

@@ -58,14 +58,14 @@ export default function Dashboard() {
   return (
     <Container>
       <header>
-        <strong>Gerenciando encomendas</strong>
+        <strong>Gerenciando destinatários</strong>
       </header>
 
       <section>
         <TextField
           name="search"
           type="text"
-          placeholder="Buscar por encomendas"
+          placeholder="Buscar por destinatários"
           icon={MdSearch}
         />
         <Button>

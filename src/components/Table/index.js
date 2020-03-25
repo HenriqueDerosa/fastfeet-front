@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
+import { MdMoreHoriz } from 'react-icons/md'
 import TableContainer from './styles'
 
 const Table = ({ columnNames, data }) => {
+  const actions = useMemo(() => <MdMoreHoriz size={20} />, [])
+
   return (
     <TableContainer>
       <thead>
@@ -22,6 +25,7 @@ const Table = ({ columnNames, data }) => {
             <td> {item.city} </td>
             <td> {item.state} </td>
             <td> {item.status} </td>
+            <td> {actions} </td>
           </tr>
         ))}
       </tbody>
