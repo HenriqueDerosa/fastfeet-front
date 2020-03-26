@@ -53,7 +53,7 @@ export default function Dashboard() {
     [orders]
   )
 
-  if (!orders) return <Loading />
+  if (orders.length < 1) return <Loading />
 
   return (
     <Container>
