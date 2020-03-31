@@ -6,6 +6,7 @@ export default styled.div`
 
   button,
   a {
+    cursor: pointer;
     text-transform: uppercase;
     font-size: 14px;
     font-weight: bold;
