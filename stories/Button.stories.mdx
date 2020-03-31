@@ -1,0 +1,19 @@
+import { Meta, Story, Preview } from '@storybook/addon-docs/blocks'
+import Button from './Button.stories'
+
+<Meta title="MDX/Checkbox" component={Button} />
+
+# Checkbox
+
+With `MDX` we can define a story for `Checkbox` right in the middle of our
+markdown documentation.
+
+<Preview>
+  <Story name="all checkboxes">
+    <form>
+      <Button id="Unchecked" label="Unchecked" />
+      <Button id="Checked" label="Checked" checked />
+      <Button appearance="secondary" id="second" label="Secondary" checked />
+    </form>
+  </Story>
+</Preview>
