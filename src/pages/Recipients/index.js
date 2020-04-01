@@ -8,52 +8,63 @@ import Loading from '~/components/Loading'
 import { Container } from './styles'
 import Button from '~/components/Button'
 import Table from '../../components/Table'
-import { getOrdersRequest } from '~/store/modules/orders/actions'
+import { getRecipientsRequest } from '~/store/modules/recipients/actions'
+import ActionsButton from '~/components/ActionsButton'
+import { toPad2 } from '~/utils/strings'
+
+const columnNames = ['ID', 'Nome', 'Endereço']
 
 export default function Dashboard() {
   const dispatch = useDispatch()
 
-  const orders = useSelector(state => state.orders.list)
+  const recipients = useSelector(state => state.recipients.list)
 
   useEffect(() => {
-    dispatch(getOrdersRequest())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const columnNames = [
-    'ID',
-    'Destinatário',
-    'Entregador',
-    'Cidade',
-    'Estado',
-    'Status',
-  ]
+    dispatch(getRecipientsRequest())
+  }, [dispatch])
 
   const data = useMemo(
     () =>
-      orders &&
-      orders.map(order => {
-        const { id, recipient, deliveryman, startDate, endDate } = order
-        const getStatus = () => {
-          if (isPast(new Date(startDate))) {
-            return 'Pendente'
-          }
-          if (isPast(new Date(endDate))) return 'Entregue'
-          return 'Em andamento'
-        }
+      recipients &&
+      recipients.map(order => {
+        const {
+          id,
+          name,
+          address,
+          address2,
+          number,
+          state,
+          city,
+          zipcode,
+        } = order
         return {
           id,
-          recipient: recipient.name,
-          deliveryman: deliveryman.name,
-          city: recipient.city,
-          state: recipient.state,
-          status: getStatus(),
+          name,
+          address: `${address} ${address2} ${number} - CEP ${zipcode} / ${city} - ${state}`,
         }
       }),
-    [orders]
+    [recipients]
   )
 
-  if (!orders) return <Loading />
+  const row = useMemo(
+    () => (
+      <>
+        {data.map(item => (
+          <tr key={item.id}>
+            <td> #{toPad2(item.id)} </td>
+            <td> {item.name} </td>
+            <td> {item.address} </td>
+            <td>
+              <ActionsButton />
+            </td>
+          </tr>
+        ))}
+      </>
+    ),
+    [data]
+  )
+
+  if (recipients.length < 1) return <Loading />
 
   return (
     <Container>
@@ -73,7 +84,7 @@ export default function Dashboard() {
           Cadastrar
         </Button>
       </section>
-      <Table columnNames={columnNames} data={data} />
+      <Table columnNames={columnNames} row={row} />
     </Container>
   )
 }
