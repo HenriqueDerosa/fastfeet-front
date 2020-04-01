@@ -9,6 +9,7 @@ import Button from '~/components/Button'
 import Table from '../../components/Table'
 import { getProblemsRequest } from '~/store/modules/problems/actions'
 import ActionsButton from '~/components/ActionsButton'
+import { toPad2 } from '~/utils/strings'
 
 export default function Dashboard() {
   const dispatch = useDispatch()
@@ -42,7 +43,7 @@ export default function Dashboard() {
       <>
         {data.map(item => (
           <tr key={item.id}>
-            <td> {item.deliveryId} </td>
+            <td> #{toPad2(item.deliveryId)} </td>
             <td> {item.description} </td>
             <td>
               <ActionsButton />
@@ -59,21 +60,9 @@ export default function Dashboard() {
   return (
     <Container>
       <header>
-        <strong>Gerenciando problemas</strong>
+        <strong>Problemas na entrega</strong>
       </header>
 
-      <section>
-        <TextField
-          name="search"
-          type="text"
-          placeholder="Buscar por problemas"
-          icon={MdSearch}
-        />
-        <Button>
-          <MdAdd size={18} color="white" />
-          Cadastrar
-        </Button>
-      </section>
       <Table columnNames={columnNames} row={row} />
     </Container>
   )
