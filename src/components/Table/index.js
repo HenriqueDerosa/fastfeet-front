@@ -1,11 +1,8 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { MdMoreHoriz } from 'react-icons/md'
 import TableContainer from './styles'
 
-const Table = ({ columnNames, data }) => {
-  const actions = useMemo(() => <MdMoreHoriz size={20} />, [])
-
+const Table = ({ columnNames, row }) => {
   return (
     <TableContainer>
       <thead>
@@ -16,35 +13,14 @@ const Table = ({ columnNames, data }) => {
           <th>Ações</th>
         </tr>
       </thead>
-      <tbody>
-        {data.map(item => (
-          <tr key={item.id}>
-            <td> {item.id} </td>
-            <td> {item.recipient} </td>
-            <td> {item.deliveryman} </td>
-            <td> {item.city} </td>
-            <td> {item.state} </td>
-            <td> {item.status} </td>
-            <td> {actions} </td>
-          </tr>
-        ))}
-      </tbody>
+      <tbody>{row}</tbody>
     </TableContainer>
   )
 }
 
 Table.propTypes = {
   columnNames: PropTypes.arrayOf(PropTypes.string).isRequired,
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      recipient: PropTypes.string,
-      deliveryman: PropTypes.string,
-      city: PropTypes.string,
-      state: PropTypes.string,
-      status: PropTypes.string,
-    })
-  ).isRequired,
+  row: PropTypes.node.isRequired,
 }
 
 export default Table

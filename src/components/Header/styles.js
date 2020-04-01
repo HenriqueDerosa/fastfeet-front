@@ -22,15 +22,6 @@ export const Content = styled.div`
       padding-right: 20px;
       border-right: 1px solid #eee;
     }
-
-    a {
-      font-weight: bold;
-      color: #7159c1;
-
-      &:not(first-child) {
-        padding-right: 20px;
-      }
-    }
   }
 
   aside {

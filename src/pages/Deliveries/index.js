@@ -9,6 +9,16 @@ import { Container } from './styles'
 import Button from '~/components/Button'
 import Table from '../../components/Table'
 import { getOrdersRequest } from '~/store/modules/orders/actions'
+import ActionsButton from '~/components/ActionsButton'
+
+const columnNames = [
+  'ID',
+  'Destinatário',
+  'Entregador',
+  'Cidade',
+  'Estado',
+  'Status',
+]
 
 export default function Dashboard() {
   const dispatch = useDispatch()
@@ -17,17 +27,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     dispatch(getOrdersRequest())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const columnNames = [
-    'ID',
-    'Destinatário',
-    'Entregador',
-    'Cidade',
-    'Estado',
-    'Status',
-  ]
+  }, [dispatch])
 
   const data = useMemo(
     () =>
@@ -53,6 +53,27 @@ export default function Dashboard() {
     [orders]
   )
 
+  const row = useMemo(
+    () => (
+      <>
+        {data.map(item => (
+          <tr key={item.id}>
+            <td> {item.id} </td>
+            <td> {item.recipient} </td>
+            <td> {item.deliveryman} </td>
+            <td> {item.city} </td>
+            <td> {item.state} </td>
+            <td> {item.status} </td>
+            <td>
+              <ActionsButton />
+            </td>
+          </tr>
+        ))}
+      </>
+    ),
+    [data]
+  )
+
   if (orders.length < 1) return <Loading />
 
   return (
@@ -73,7 +94,7 @@ export default function Dashboard() {
           Cadastrar
         </Button>
       </section>
-      <Table columnNames={columnNames} data={data} />
+      <Table columnNames={columnNames} row={row} />
     </Container>
   )
 }

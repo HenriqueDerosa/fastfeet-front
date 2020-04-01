@@ -17,21 +17,24 @@ export default styled.table`
     > tr {
       transition: background 0.1s;
 
-      height: 64px;
+      height: 57px;
 
       background: white;
 
-      > td:first-child {
-        border-top-left-radius: 4px;
-        border-bottom-left-radius: 4px;
-      }
-      > td:last-child {
-        border-top-right-radius: 4px;
-        border-bottom-right-radius: 4px;
-      }
-
       &:hover {
         background: ${darken(0.01, 'white')};
+      }
+
+      td {
+        &:first-child {
+          border-top-left-radius: 4px;
+          border-bottom-left-radius: 4px;
+        }
+
+        &:last-child {
+          border-top-right-radius: 4px;
+          border-bottom-right-radius: 4px;
+        }
       }
     }
   }

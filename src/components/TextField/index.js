@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Input } from '@rocketseat/unform'
 import Container from './styles'
 
-const TextField = ({ placeholder, type, name, icon }) => {
+const TextField = ({ placeholder, type, name, icon, ...rest }) => {
   const renderIcon = useCallback(() => {
     if (icon) {
       const Icon = icon
@@ -15,7 +15,7 @@ const TextField = ({ placeholder, type, name, icon }) => {
   return (
     <Container>
       {renderIcon()}
-      <Input name={name} type={type} placeholder={placeholder} />
+      <Input name={name} type={type} placeholder={placeholder} {...rest} />
     </Container>
   )
 }

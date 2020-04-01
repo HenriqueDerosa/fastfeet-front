@@ -1,59 +1,65 @@
 import React, { useMemo, useEffect } from 'react'
-import { isPast } from 'date-fns'
 import { MdAdd, MdSearch } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import TextField from '~/components/TextField'
 import Loading from '~/components/Loading'
+import Avatar from '~/components/Avatar'
 
 import { Container } from './styles'
 import Button from '~/components/Button'
 import Table from '../../components/Table'
-import { getOrdersRequest } from '~/store/modules/orders/actions'
+import { getDeliverymenRequest } from '~/store/modules/deliverymen/actions'
+import ActionsButton from '~/components/ActionsButton'
 
 export default function Dashboard() {
   const dispatch = useDispatch()
 
-  const orders = useSelector(state => state.orders.list)
+  const deliverymen = useSelector(state => state.deliverymen.list)
 
   useEffect(() => {
-    dispatch(getOrdersRequest())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+    dispatch(getDeliverymenRequest())
+  }, [dispatch])
 
-  const columnNames = [
-    'ID',
-    'Destinatário',
-    'Entregador',
-    'Cidade',
-    'Estado',
-    'Status',
-  ]
+  const columnNames = ['ID', 'Foto', 'Nome', 'Email']
 
   const data = useMemo(
     () =>
-      orders &&
-      orders.map(order => {
-        const { id, recipient, deliveryman, startDate, endDate } = order
-        const getStatus = () => {
-          if (isPast(new Date(startDate))) {
-            return 'Pendente'
-          }
-          if (isPast(new Date(endDate))) return 'Entregue'
-          return 'Em andamento'
-        }
+      deliverymen &&
+      deliverymen.map(deliveryman => {
+        const { id, name, email, avatar } = deliveryman
+
         return {
           id,
-          recipient: recipient.name,
-          deliveryman: deliveryman.name,
-          city: recipient.city,
-          state: recipient.state,
-          status: getStatus(),
+          name,
+          email,
+          avatar,
         }
       }),
-    [orders]
+    [deliverymen]
   )
 
-  if (!orders) return <Loading />
+  const row = useMemo(
+    () => (
+      <>
+        {data.map(item => (
+          <tr key={item.id}>
+            <td> {item.id} </td>
+            <td>
+              <Avatar src={item.avatar?.url} alt={item.name} />
+            </td>
+            <td> {item.name} </td>
+            <td> {item.email} </td>
+            <td>
+              <ActionsButton />
+            </td>
+          </tr>
+        ))}
+      </>
+    ),
+    [data]
+  )
+
+  if (!deliverymen) return <Loading />
 
   return (
     <Container>
@@ -73,7 +79,7 @@ export default function Dashboard() {
           Cadastrar
         </Button>
       </section>
-      <Table columnNames={columnNames} data={data} />
+      <Table columnNames={columnNames} row={row} />
     </Container>
   )
 }

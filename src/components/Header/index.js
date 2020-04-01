@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import Link from '~/components/Link'
 
 import logo from '~/assets/logo.png'
 import { Container, Content, Profile } from './styles'
@@ -19,7 +19,9 @@ export default function Header() {
       <Content>
         <nav>
           <img src={logo} alt="FastFeet" />
-          <Link to="/encomendas">ENCOMENDAS</Link>
+          <Link to="/encomendas" selected>
+            ENCOMENDAS
+          </Link>
           <Link to="/entregadores">ENTREGADORES</Link>
           <Link to="/destinatarios">DESTINATÁRIOS</Link>
           <Link to="/problemas">PROBLEMAS</Link>
