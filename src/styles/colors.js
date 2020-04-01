@@ -6,6 +6,7 @@ const colors = {
   gallery: '#eee',
   lima: '#82BF18',
   quickSilver: '#999999',
+  silver: '#C6C6C6',
   alto: '#DDDDDD',
   tundora: '#444444',
   cinnabar: '#E74040',

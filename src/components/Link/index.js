@@ -4,6 +4,7 @@ import colors from '~/styles/colors'
 
 export default styled(Link)`
   font-weight: bold;
+  transition: color 0.6s;
   color: ${props => (props.selected ? colors.tundora : colors.quickSilver)};
 
   &:not(first-child) {

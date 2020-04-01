@@ -10,6 +10,7 @@ import Button from '~/components/Button'
 import Table from '../../components/Table'
 import { getOrdersRequest } from '~/store/modules/orders/actions'
 import ActionsButton from '~/components/ActionsButton'
+import { toPad2 } from '~/utils/strings'
 
 const columnNames = [
   'ID',
@@ -58,7 +59,7 @@ export default function Dashboard() {
       <>
         {data.map(item => (
           <tr key={item.id}>
-            <td> {item.id} </td>
+            <td> #{toPad2(item.id)} </td>
             <td> {item.recipient} </td>
             <td> {item.deliveryman} </td>
             <td> {item.city} </td>
