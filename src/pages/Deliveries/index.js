@@ -47,6 +47,7 @@ export default function Dashboard() {
           id,
           recipient: recipient.name,
           deliveryman: deliveryman.name,
+          avatar: deliveryman.avatar,
           city: recipient.city,
           state: recipient.state,
           status: getStatus(),
