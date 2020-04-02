@@ -1,6 +1,6 @@
 import React from 'react'
 import { MdArrowBack } from 'react-icons/md'
-import StyledRouter from './decorators/router'
+import StyledRouter from '~/../stories/decorators/router'
 import Button from '~/components/Button'
 
 export default {

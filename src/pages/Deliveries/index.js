@@ -1,5 +1,4 @@
 import React, { useMemo, useEffect } from 'react'
-import { isPast } from 'date-fns'
 import { MdAdd, MdSearch } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import TextField from '~/components/TextField'
@@ -12,6 +11,7 @@ import { getOrdersRequest } from '~/store/modules/orders/actions'
 import ActionsButton from '~/components/ActionsButton'
 import { toPad2 } from '~/utils/strings'
 import Avatar from '~/components/Avatar'
+import Status from './Status'
 
 const columnNames = [
   'ID',
@@ -36,13 +36,7 @@ export default function Dashboard() {
       orders &&
       orders.map(order => {
         const { id, recipient, deliveryman, startDate, endDate } = order
-        const getStatus = () => {
-          if (isPast(new Date(startDate))) {
-            return 'Pendente'
-          }
-          if (isPast(new Date(endDate))) return 'Entregue'
-          return 'Em andamento'
-        }
+
         return {
           id,
           recipient: recipient.name,
@@ -50,7 +44,8 @@ export default function Dashboard() {
           avatar: deliveryman.avatar,
           city: recipient.city,
           state: recipient.state,
-          status: getStatus(),
+          startDate,
+          endDate,
         }
       }),
     [orders]
@@ -72,7 +67,9 @@ export default function Dashboard() {
             </td>
             <td> {item.city} </td>
             <td> {item.state} </td>
-            <td> {item.status} </td>
+            <td>
+              <Status startDate={item.startDate} endDate={item.endDate} />
+            </td>
             <td>
               <ActionsButton />
             </td>

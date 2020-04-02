@@ -1,11 +1,8 @@
 import React, { useMemo, useEffect } from 'react'
-import { MdAdd, MdSearch } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
-import TextField from '~/components/TextField'
 import Loading from '~/components/Loading'
 
 import { Container } from './styles'
-import Button from '~/components/Button'
 import Table from '../../components/Table'
 import { getProblemsRequest } from '~/store/modules/problems/actions'
 import ActionsButton from '~/components/ActionsButton'
