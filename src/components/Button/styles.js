@@ -3,6 +3,17 @@ import { lighten } from 'polished'
 
 export default styled.div`
   color: white;
+  width: 142px;
+
+  a {
+    text-decoration: none;
+
+    &:active,
+    &:visited,
+    &:focus {
+      color: inherit;
+    }
+  }
 
   button,
   a {
@@ -15,7 +26,6 @@ export default styled.div`
     justify-content: center;
     align-items: center;
     color: white;
-    width: 142px;
     height: 36px;
     padding: 8px 16px;
     margin: 0;
@@ -23,20 +33,18 @@ export default styled.div`
     background: #7d40e7 0% 0% no-repeat padding-box;
     border-radius: 4px;
 
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
     transition: background 0.2s;
 
     &:hover {
       background: ${lighten(0.05, '#7d40e7')};
     }
-  }
 
-  a {
-    text-decoration: none;
-
-    &:active,
-    &:visited,
-    &:focus {
-      color: inherit;
+    svg {
+      margin-right: 4px;
     }
   }
 `

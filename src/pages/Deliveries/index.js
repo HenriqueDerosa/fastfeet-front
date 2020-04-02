@@ -11,6 +11,7 @@ import Table from '../../components/Table'
 import { getOrdersRequest } from '~/store/modules/orders/actions'
 import ActionsButton from '~/components/ActionsButton'
 import { toPad2 } from '~/utils/strings'
+import Avatar from '~/components/Avatar'
 
 const columnNames = [
   'ID',
@@ -61,7 +62,13 @@ export default function Dashboard() {
           <tr key={item.id}>
             <td> #{toPad2(item.id)} </td>
             <td> {item.recipient} </td>
-            <td> {item.deliveryman} </td>
+            <td>
+              <Avatar
+                src={item.avatar?.url}
+                alt={item.name}
+                name={item.deliveryman}
+              />
+            </td>
             <td> {item.city} </td>
             <td> {item.state} </td>
             <td> {item.status} </td>
