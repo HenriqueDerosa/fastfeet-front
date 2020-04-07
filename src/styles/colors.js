@@ -1,3 +1,5 @@
+import { ORDER_STATUS } from '~/utils/constants'
+
 const colors = {
   primary: '#7D40E7',
   white: '#FFFFFF',
@@ -11,6 +13,14 @@ const colors = {
   tundora: '#444444',
   cinnabar: '#E74040',
   tulipTree: '#E7BA40',
+
+  // status colors
+  status: {
+    [ORDER_STATUS.DELIVERED]: '#2CA42B',
+    [ORDER_STATUS.PENDING]: '#C1BC35',
+    [ORDER_STATUS.WITHDRAWN]: '#4D85EE',
+    [ORDER_STATUS.CANCELLED]: '#DE3B3B',
+  },
 }
 
 export default colors

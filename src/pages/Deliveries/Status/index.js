@@ -2,27 +2,35 @@ import React, { useMemo } from 'react'
 import PropTypes from 'prop-types'
 import { isPast } from 'date-fns'
 import { Container } from './styles'
-
-const STATUS = {
-  PENDING: 'Pendente',
-  PROGRESS: 'Em andamento',
-  DELIVERED: 'Entregue',
-  WITHDRAWN: 'Retirada',
-  CANCELLED: 'Cancelada',
-}
+import colors from '~/styles/colors'
+import { ORDER_STATUS } from '~/utils/constants'
 
 export default function Status({ startDate, endDate }) {
-  const status = useMemo(() => {
+  const statusId = useMemo(() => {
     if (isPast(new Date(startDate))) {
-      return STATUS.PENDING
+      return ORDER_STATUS.PENDING
     }
-    if (isPast(new Date(endDate))) return STATUS.DELIVERED
-    return STATUS.PROGRESS
+    if (isPast(new Date(endDate))) return ORDER_STATUS.DELIVERED
+
+    return ORDER_STATUS.PROGRESS
   }, [endDate, startDate])
 
+  const status = useMemo(() => {
+    switch (statusId) {
+      case ORDER_STATUS.DELIVERED:
+        return { color: colors.status[statusId], label: 'Entregue' }
+      case ORDER_STATUS.WITHDRAWN:
+        return { color: colors.status[statusId], label: 'Retirada' }
+      case ORDER_STATUS.CANCELLED:
+        return { color: colors.status[statusId], label: 'Cancelada' }
+      default:
+        return { color: colors.status[statusId], label: 'Pendente' }
+    }
+  }, [statusId])
+
   return (
-    <Container>
-      <span>{status}</span>
+    <Container color={status.color}>
+      <span>{status.label}</span>
     </Container>
   )
 }

@@ -28,6 +28,7 @@
     "redux-persist": "^5.10.0",
     "redux-saga": "^1.0.5",
     "styled-components": "^4.3.2",
+    "@storybook/addon-knobs": "^5.3.18",
     "yup": "^0.27.0"
   },
   "scripts": {

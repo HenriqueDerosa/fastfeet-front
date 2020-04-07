@@ -7,3 +7,11 @@ export const URL = {
   PROBLEMS: '/problemas',
   PROFILE: '/profile',
 }
+
+export const ORDER_STATUS = {
+  PENDING: 'pending',
+  PROGRESS: 'progress',
+  DELIVERED: 'delivered',
+  WITHDRAWN: 'withdrawn',
+  CANCELLED: 'cancelled',
+}
