@@ -1,0 +1,141 @@
+import React, { useCallback, useRef, useState, useEffect, useMemo } from 'react'
+import PropTypes from 'prop-types'
+// import {useSelector, useDispatch} from 'react-redux'
+import { MdKeyboardArrowLeft, MdDone, MdImage } from 'react-icons/md'
+import { useField } from '@rocketseat/unform'
+
+import { useDispatch } from 'react-redux'
+import { Container, Content, Image } from './styles'
+import Button from '~/components/Button'
+import TextField from '~/components/TextField'
+import colors from '~/styles/colors'
+import { URL } from '~/utils/constants'
+import { createDeliverymanRequest } from '~/store/modules/deliverymen/actions'
+import api from '~/services/api'
+
+const RegisterDeliveryman = () => {
+  const { defaultValue, registerField } = useField('avatar')
+
+  const dispatch = useDispatch()
+  const imgRef = useRef(null)
+  const [file, setFile] = useState(defaultValue && defaultValue.id)
+  const [preview, setPreview] = useState(defaultValue && defaultValue.url)
+  const [data, setData] = useState({
+    name: '',
+    email: '',
+  })
+
+  useEffect(() => {
+    if (imgRef.current) {
+      registerField({
+        name: 'avatar_id',
+        ref: imgRef.current,
+        path: 'dataset.file',
+      })
+    }
+  }, [registerField])
+
+  const handleSave = useCallback(() => {
+    dispatch(createDeliverymanRequest(data))
+  }, [data, dispatch])
+
+  const handleChangeFields = useCallback(
+    event => {
+      const { name, value } = event.currentTarget
+      setData({
+        ...data,
+        [name]: value,
+      })
+    },
+    [data]
+  )
+
+  const handleChangeFile = useCallback(
+    async event => {
+      const formData = new FormData()
+      const { files } = event.target
+
+      formData.append('file', files[0])
+
+      const response = await api.post('files', formData)
+      const { id, url } = response.data
+
+      setData({ ...data, file: id })
+      setPreview(url)
+    },
+    [data]
+  )
+
+  const handleAddFile = useCallback(() => {
+    imgRef.current.click()
+  }, [])
+
+  const renderDefault = useMemo(
+    () => (
+      <Image onClick={handleAddFile}>
+        <MdImage size={40} color={colors.alto} />
+        <p>
+          <strong>Adicionar foto</strong>
+        </p>
+      </Image>
+    ),
+    [handleAddFile]
+  )
+
+  return (
+    <Container>
+      <header>
+        <h1>Cadastro de entregadores</h1>
+        <div>
+          <Button
+            background={colors.silver}
+            to={URL.DELIVERYMEN}
+            Icon={MdKeyboardArrowLeft}
+          >
+            Voltar
+          </Button>
+          <Button onClick={handleSave} Icon={MdDone}>
+            Salvar
+          </Button>
+        </div>
+      </header>
+
+      <Content>
+        <Image htmlFor="avatar">
+          {preview ? <img src={preview} alt="" /> : renderDefault}
+
+          <input
+            id="avatar"
+            type="file"
+            accept="image/*"
+            data-file={file}
+            ref={imgRef}
+            onChange={handleChangeFile}
+          />
+        </Image>
+        <p>Nome</p>
+        <TextField
+          name="name"
+          type="name"
+          placeholder="Nome"
+          onChange={handleChangeFields}
+          value={data.name}
+        />
+        <p>Email</p>
+        <TextField
+          name="email"
+          type="email"
+          placeholder="Email"
+          onChange={handleChangeFields}
+          value={data.email}
+        />
+      </Content>
+    </Container>
+  )
+}
+
+RegisterDeliveryman.propTypes = {}
+
+RegisterDeliveryman.defaultProps = {}
+
+export default RegisterDeliveryman

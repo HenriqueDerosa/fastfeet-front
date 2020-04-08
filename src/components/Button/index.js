@@ -6,10 +6,10 @@ import Container from './styles'
 
 const ICON_SIZE = 18
 
-const Button = ({ children, to, onClick, Icon }) => {
+const Button = ({ children, to, onClick, Icon, background }) => {
   if (to) {
     return (
-      <Container>
+      <Container background={background}>
         <Link to={to}>
           {Icon && <Icon size={ICON_SIZE} />}
           {children}
@@ -19,7 +19,7 @@ const Button = ({ children, to, onClick, Icon }) => {
   }
 
   return (
-    <Container>
+    <Container background={background}>
       <button type="button" onClick={onClick}>
         {Icon && <Icon size={ICON_SIZE} />}
         {children}
@@ -33,6 +33,7 @@ Button.propTypes = {
   to: PropTypes.string,
   onClick: PropTypes.func,
   Icon: PropTypes.node,
+  background: PropTypes.string,
 }
 
 Button.defaultProps = {
@@ -40,6 +41,7 @@ Button.defaultProps = {
   to: null,
   onClick: () => {},
   Icon: null,
+  background: null,
 }
 
 export default Button

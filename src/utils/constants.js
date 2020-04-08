@@ -6,6 +6,8 @@ export const URL = {
   RECIPIENTS: '/destinatarios',
   PROBLEMS: '/problemas',
   PROFILE: '/profile',
+
+  REGISTER_DELIVERYMAN: '/entregadores/novo',
 }
 
 export const ORDER_STATUS = {

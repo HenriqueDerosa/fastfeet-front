@@ -13,7 +13,7 @@ export const Button = styled.button`
   }
 
   &:hover {
-    svg {
+    > svg {
       fill: ${colors.tundora};
     }
   }

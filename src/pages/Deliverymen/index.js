@@ -11,6 +11,7 @@ import Table from '../../components/Table'
 import { getDeliverymenRequest } from '~/store/modules/deliverymen/actions'
 import ActionsButton from '~/components/ActionsButton'
 import { toPad2 } from '~/utils/strings'
+import { URL } from '~/utils/constants'
 
 export default function Dashboard() {
   const dispatch = useDispatch()
@@ -75,7 +76,7 @@ export default function Dashboard() {
           placeholder="Buscar por entregadores"
           icon={MdSearch}
         />
-        <Button>
+        <Button to={URL.REGISTER_DELIVERYMAN}>
           <MdAdd size={18} color="white" />
           Cadastrar
         </Button>

@@ -3,7 +3,7 @@ import { lighten } from 'polished'
 
 export default styled.div`
   color: white;
-  width: 142px;
+  max-width: 142px;
 
   a {
     text-decoration: none;
@@ -30,7 +30,8 @@ export default styled.div`
     padding: 8px 16px;
     margin: 0;
     border: 0;
-    background: #7d40e7 0% 0% no-repeat padding-box;
+    background: ${props => props.background || '#7d40e7'} 0% 0% no-repeat
+      padding-box;
     border-radius: 4px;
 
     overflow: hidden;

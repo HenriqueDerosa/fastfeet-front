@@ -17,6 +17,14 @@ export default function deliverymen(state = INITIAL_STATE, action) {
         draft.list = action.payload
         break
       }
+      case '@deliverymen/SAVE_FILE_REQUEST': {
+        draft.loading = true
+        break
+      }
+      case '@deliverymen/SAVE_FILE_SUCCESS': {
+        draft.loading = false
+        break
+      }
       default:
     }
   })
