@@ -7,6 +7,7 @@ export const URL = {
   PROBLEMS: '/problemas',
   PROFILE: '/profile',
 
+  REGISTER_DELIVERIES: '/encomendas/novo',
   REGISTER_DELIVERYMAN: '/entregadores/novo',
 }
 

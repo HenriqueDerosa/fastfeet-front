@@ -12,6 +12,7 @@ import ActionsButton from '~/components/ActionsButton'
 import { toPad2 } from '~/utils/strings'
 import Avatar from '~/components/Avatar'
 import Status from './Status'
+import { URL } from '~/utils/constants'
 
 const columnNames = [
   'ID',
@@ -95,7 +96,7 @@ export default function Dashboard() {
           placeholder="Buscar por encomendas"
           icon={MdSearch}
         />
-        <Button>
+        <Button to={URL.REGISTER_DELIVERIES}>
           <MdAdd size={18} color="white" />
           Cadastrar
         </Button>

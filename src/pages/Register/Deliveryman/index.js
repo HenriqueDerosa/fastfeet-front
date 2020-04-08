@@ -12,6 +12,7 @@ import colors from '~/styles/colors'
 import { URL } from '~/utils/constants'
 import { createDeliverymanRequest } from '~/store/modules/deliverymen/actions'
 import api from '~/services/api'
+import Header from '../Header'
 
 const RegisterDeliveryman = () => {
   const { defaultValue, registerField } = useField('avatar')
@@ -84,21 +85,11 @@ const RegisterDeliveryman = () => {
 
   return (
     <Container>
-      <header>
-        <h1>Cadastro de entregadores</h1>
-        <div>
-          <Button
-            background={colors.silver}
-            to={URL.DELIVERYMEN}
-            Icon={MdKeyboardArrowLeft}
-          >
-            Voltar
-          </Button>
-          <Button onClick={handleSave} Icon={MdDone}>
-            Salvar
-          </Button>
-        </div>
-      </header>
+      <Header
+        title="Cadastro de entregadores"
+        handleSave={handleSave}
+        backLink={URL.DELIVERYMEN}
+      />
 
       <Content>
         <Image htmlFor="avatar">

@@ -1,7 +1,11 @@
 import styled from 'styled-components'
 import { lighten } from 'polished'
+import colors from '~/styles/colors'
 
-export default styled.div`
+export default styled.div.attrs(props => ({
+  background: props.disabled ? colors.alto : props.background || '#7d40e7',
+}))`
+  pointer-events: ${props => props.disabled && 'none'};
   color: white;
   max-width: 142px;
 
@@ -30,8 +34,7 @@ export default styled.div`
     padding: 8px 16px;
     margin: 0;
     border: 0;
-    background: ${props => props.background || '#7d40e7'} 0% 0% no-repeat
-      padding-box;
+    background: ${props => props.background} 0% 0% no-repeat padding-box;
     border-radius: 4px;
 
     overflow: hidden;
@@ -41,7 +44,7 @@ export default styled.div`
     transition: background 0.2s;
 
     &:hover {
-      background: ${lighten(0.05, '#7d40e7')};
+      background: ${props => !props.disabled && lighten(0.05, '#7d40e7')};
     }
 
     svg {

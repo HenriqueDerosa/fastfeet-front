@@ -6,10 +6,10 @@ import Container from './styles'
 
 const ICON_SIZE = 18
 
-const Button = ({ children, to, onClick, Icon, background }) => {
+const Button = ({ children, to, onClick, Icon, background, ...rest }) => {
   if (to) {
     return (
-      <Container background={background}>
+      <Container background={background} {...rest}>
         <Link to={to}>
           {Icon && <Icon size={ICON_SIZE} />}
           {children}
@@ -19,7 +19,7 @@ const Button = ({ children, to, onClick, Icon, background }) => {
   }
 
   return (
-    <Container background={background}>
+    <Container background={background} {...rest}>
       <button type="button" onClick={onClick}>
         {Icon && <Icon size={ICON_SIZE} />}
         {children}
