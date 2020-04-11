@@ -22,8 +22,7 @@ export default function Dashboard() {
 
   const data = useMemo(
     () =>
-      problems &&
-      problems.map(problem => {
+      problems?.map(problem => {
         const { id, deliveryId, description } = problem
 
         return {
@@ -38,7 +37,7 @@ export default function Dashboard() {
   const row = useMemo(
     () => (
       <>
-        {data.map(item => (
+        {data?.map(item => (
           <tr key={item.id}>
             <td> #{toPad2(item.deliveryId)} </td>
             <td> {item.description} </td>
@@ -60,7 +59,7 @@ export default function Dashboard() {
         <strong>Problemas na entrega</strong>
       </header>
 
-      <Table columnNames={columnNames} row={row} />
+      <Table columnNames={columnNames} row={row} empty={problems.length < 1} />
     </Container>
   )
 }

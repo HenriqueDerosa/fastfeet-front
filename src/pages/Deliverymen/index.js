@@ -26,8 +26,7 @@ export default function Dashboard() {
 
   const data = useMemo(
     () =>
-      deliverymen &&
-      deliverymen.map(deliveryman => {
+      deliverymen?.map(deliveryman => {
         const { id, name, email, avatar } = deliveryman
 
         return {
@@ -43,7 +42,7 @@ export default function Dashboard() {
   const row = useMemo(
     () => (
       <>
-        {data.map(item => (
+        {data?.map(item => (
           <tr key={item.id}>
             <td> #{toPad2(item.id)} </td>
             <td>
@@ -81,7 +80,11 @@ export default function Dashboard() {
           Cadastrar
         </Button>
       </section>
-      <Table columnNames={columnNames} row={row} />
+      <Table
+        columnNames={columnNames}
+        row={row}
+        empty={deliverymen.length < 1}
+      />
     </Container>
   )
 }

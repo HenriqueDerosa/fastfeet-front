@@ -3,7 +3,7 @@ import produce from '~/store/produceCamelized'
 const INITIAL_STATE = {
   token: null,
   loading: false,
-  list: [],
+  list: null,
 }
 
 export default function orders(state = INITIAL_STATE, action) {

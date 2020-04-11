@@ -2,7 +2,7 @@ import produce from '~/store/produceCamelized'
 
 const INITIAL_STATE = {
   loading: false,
-  list: [],
+  list: null,
 }
 
 export default function deliverymen(state = INITIAL_STATE, action) {

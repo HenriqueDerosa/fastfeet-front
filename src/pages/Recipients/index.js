@@ -25,8 +25,7 @@ export default function Dashboard() {
 
   const data = useMemo(
     () =>
-      recipients &&
-      recipients.map(order => {
+      recipients?.map(order => {
         const {
           id,
           name,
@@ -49,7 +48,7 @@ export default function Dashboard() {
   const row = useMemo(
     () => (
       <>
-        {data.map(item => (
+        {data?.map(item => (
           <tr key={item.id}>
             <td> #{toPad2(item.id)} </td>
             <td> {item.name} </td>
@@ -64,7 +63,7 @@ export default function Dashboard() {
     [data]
   )
 
-  if (recipients.length < 1) return <Loading />
+  if (!recipients) return <Loading />
 
   return (
     <Container>
@@ -84,7 +83,11 @@ export default function Dashboard() {
           Cadastrar
         </Button>
       </section>
-      <Table columnNames={columnNames} row={row} />
+      <Table
+        columnNames={columnNames}
+        row={row}
+        empty={recipients.length < 1}
+      />
     </Container>
   )
 }
