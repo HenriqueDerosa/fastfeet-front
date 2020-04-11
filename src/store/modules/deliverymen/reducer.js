@@ -25,6 +25,16 @@ export default function deliverymen(state = INITIAL_STATE, action) {
         draft.loading = false
         break
       }
+      case '@deliverymen/DELETE_DELIVERYMEN_REQUEST': {
+        draft.loading = true
+        break
+      }
+      case '@deliverymen/DELETE_DELIVERYMEN_SUCCESS': {
+        draft.loading = false
+        const id = action.payload
+        draft.list = draft.list.filter(item => item.id !== id)
+        break
+      }
       default:
     }
   })

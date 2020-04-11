@@ -17,6 +17,16 @@ export default function problems(state = INITIAL_STATE, action) {
         draft.list = action.payload
         break
       }
+      case '@problems/CANCEL_ORDER_REQUEST': {
+        draft.loading = true
+        break
+      }
+      case '@problems/CANCEL_ORDER_SUCCESS': {
+        draft.loading = false
+        const id = action.payload
+        draft.list = draft.list.filter(item => item.id !== id)
+        break
+      }
       default:
     }
   })

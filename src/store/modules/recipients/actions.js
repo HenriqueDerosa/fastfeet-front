@@ -24,3 +24,16 @@ export function createRecipientSuccess(recipients) {
     payload: recipients,
   }
 }
+export function deleteRecipientRequest(id) {
+  return {
+    type: '@recipients/DELETE_RECIPIENT_REQUEST',
+    payload: id,
+  }
+}
+
+export function deleteRecipientSuccess(id) {
+  return {
+    type: '@recipients/DELETE_RECIPIENT_SUCCESS',
+    payload: id,
+  }
+}

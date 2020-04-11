@@ -3,7 +3,11 @@ import { toast } from 'react-toastify'
 
 import api from '~/services/api'
 
-import { getDeliverymenSuccess, createDeliverymanSuccess } from './actions'
+import {
+  getDeliverymenSuccess,
+  createDeliverymanSuccess,
+  deleteDeliverymenSuccess,
+} from './actions'
 import { GENERIC_ERROR_MESSAGE } from '~/utils/constants'
 import history from '~/services/history'
 
@@ -30,6 +34,16 @@ export function* createDeliverymanRequest({ payload }) {
     toast.error(GENERIC_ERROR_MESSAGE)
   }
 }
+export function* deleteDeliverymanRequest({ payload: id }) {
+  try {
+    yield call(api.delete, `deliverymen/${id}`)
+    toast.success('Entregador removido com sucesso')
+
+    yield put(deleteDeliverymenSuccess(id))
+  } catch (err) {
+    toast.error(GENERIC_ERROR_MESSAGE)
+  }
+}
 
 export function setToken({ payload }) {
   if (!payload) return
@@ -47,5 +61,9 @@ export default all([
   takeLatest(
     '@deliverymen/CREATE_DELIVERYMAN_REQUEST',
     createDeliverymanRequest
+  ),
+  takeLatest(
+    '@deliverymen/DELETE_DELIVERYMEN_REQUEST',
+    deleteDeliverymanRequest
   ),
 ])

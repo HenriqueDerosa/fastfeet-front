@@ -3,7 +3,11 @@ import { toast } from 'react-toastify'
 
 import api from '~/services/api'
 
-import { getRecipientsSuccess, createRecipientSuccess } from './actions'
+import {
+  getRecipientsSuccess,
+  createRecipientSuccess,
+  deleteRecipientSuccess,
+} from './actions'
 import { GENERIC_ERROR_MESSAGE } from '~/utils/constants'
 import history from '~/services/history'
 
@@ -31,6 +35,17 @@ export function* createRecipientRequest({ payload }) {
   }
 }
 
+export function* deleteRecipientRequest({ payload: id }) {
+  try {
+    yield call(api.delete, `recipients/${id}`)
+    toast.success('Destinatário removido com sucesso')
+
+    yield put(deleteRecipientSuccess(id))
+  } catch (err) {
+    toast.error(GENERIC_ERROR_MESSAGE)
+  }
+}
+
 export function setToken({ payload }) {
   if (!payload) return
 
@@ -45,4 +60,5 @@ export default all([
   takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@recipients/GET_RECIPIENTS_REQUEST', getRecipientsRequest),
   takeLatest('@recipients/CREATE_RECIPIENT_REQUEST', createRecipientRequest),
+  takeLatest('@recipients/DELETE_RECIPIENT_REQUEST', deleteRecipientRequest),
 ])

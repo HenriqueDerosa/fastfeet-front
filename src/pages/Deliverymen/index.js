@@ -52,7 +52,7 @@ export default function Dashboard() {
             <td> {item.name} </td>
             <td> {item.email} </td>
             <td>
-              <ActionsButton />
+              <ActionsButton id={item.id} />
             </td>
           </tr>
         ))}

@@ -24,3 +24,17 @@ export function getDeliverymenSuccess(deliverymen) {
     payload: deliverymen,
   }
 }
+
+export function deleteDeliverymenRequest(id) {
+  return {
+    type: '@deliverymen/DELETE_DELIVERYMEN_REQUEST',
+    payload: id,
+  }
+}
+
+export function deleteDeliverymenSuccess(id) {
+  return {
+    type: '@deliverymen/DELETE_DELIVERYMEN_SUCCESS',
+    payload: id,
+  }
+}

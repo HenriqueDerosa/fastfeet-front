@@ -23,3 +23,16 @@ export function createOrderSuccess(order) {
     payload: order,
   }
 }
+export function deleteOrderRequest(id) {
+  return {
+    type: '@orders/DELETE_ORDER_REQUEST',
+    payload: id,
+  }
+}
+
+export function deleteOrderSuccess(id) {
+  return {
+    type: '@orders/DELETE_ORDER_SUCCESS',
+    payload: id,
+  }
+}

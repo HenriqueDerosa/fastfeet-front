@@ -72,7 +72,7 @@ export default function Dashboard() {
               <Status startDate={item.startDate} endDate={item.endDate} />
             </td>
             <td>
-              <ActionsButton />
+              <ActionsButton id={item.id} />
             </td>
           </tr>
         ))}

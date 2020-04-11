@@ -1,11 +1,12 @@
 import React, { useState, useCallback } from 'react'
+import PropTypes from 'prop-types'
 import { MdMoreHoriz } from 'react-icons/md'
 
 import { Button, Container } from './styles'
 import colors from '~/styles/colors'
 import Tooltip from '../Tooltip'
 
-export default function ActionsButton() {
+const ActionsButton = ({ id }) => {
   const [active, setActive] = useState(false)
 
   const handleClick = useCallback(() => {
@@ -17,7 +18,13 @@ export default function ActionsButton() {
       <Button onClick={handleClick}>
         <MdMoreHoriz size={24} color={colors.silver} />
       </Button>
-      {active && <Tooltip />}
+      {active && <Tooltip id={id} />}
     </Container>
   )
 }
+
+ActionsButton.propTypes = {
+  id: PropTypes.number.isRequired,
+}
+
+export default ActionsButton

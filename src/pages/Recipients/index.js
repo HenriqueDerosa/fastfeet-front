@@ -55,7 +55,7 @@ export default function Dashboard() {
             <td> {item.name} </td>
             <td> {item.address} </td>
             <td>
-              <ActionsButton />
+              <ActionsButton id={item.id} />
             </td>
           </tr>
         ))}

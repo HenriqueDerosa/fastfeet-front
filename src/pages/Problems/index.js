@@ -43,7 +43,7 @@ export default function Dashboard() {
             <td> #{toPad2(item.deliveryId)} </td>
             <td> {item.description} </td>
             <td>
-              <ActionsButton />
+              <ActionsButton id={item.id} />
             </td>
           </tr>
         ))}

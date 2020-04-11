@@ -4,7 +4,11 @@ import { decamelizeKeys } from 'humps'
 
 import api from '~/services/api'
 
-import { getOrdersSuccess, createOrderSuccess } from './actions'
+import {
+  getOrdersSuccess,
+  createOrderSuccess,
+  deleteOrderSuccess,
+} from './actions'
 import { GENERIC_ERROR_MESSAGE } from '~/utils/constants'
 import history from '~/services/history'
 
@@ -20,7 +24,6 @@ export function* getOrdersRequest() {
 
 export function* createOrderRequest({ payload }) {
   try {
-    console.log(payload)
     const response = yield call(api.post, 'order', decamelizeKeys(payload))
     const order = response.data
 
@@ -28,6 +31,16 @@ export function* createOrderRequest({ payload }) {
     history.goBack()
 
     yield put(createOrderSuccess(order))
+  } catch (err) {
+    toast.error(GENERIC_ERROR_MESSAGE)
+  }
+}
+export function* deleteOrderRequest({ payload: id }) {
+  try {
+    yield call(api.delete, `order/${id}`)
+    toast.success('Encomenda removida com sucesso')
+
+    yield put(deleteOrderSuccess(id))
   } catch (err) {
     toast.error(GENERIC_ERROR_MESSAGE)
   }
@@ -47,4 +60,5 @@ export default all([
   takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@orders/GET_ORDERS_REQUEST', getOrdersRequest),
   takeLatest('@orders/CREATE_ORDER_REQUEST', createOrderRequest),
+  takeLatest('@orders/DELETE_ORDER_REQUEST', deleteOrderRequest),
 ])

@@ -17,7 +17,18 @@ export default function recipients(state = INITIAL_STATE, action) {
         draft.list = action.payload
         break
       }
+      case '@recipients/DELETE_RECIPIENT_REQUEST': {
+        draft.loading = true
+        break
+      }
+      case '@recipients/DELETE_RECIPIENT_SUCCESS': {
+        draft.loading = false
+        const id = action.payload
+        draft.list = draft.list.filter(item => item.id !== id)
+        break
+      }
       default:
+        break
     }
   })
 }
