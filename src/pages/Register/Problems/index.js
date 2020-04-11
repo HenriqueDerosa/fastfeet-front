@@ -10,7 +10,7 @@ import { createOrderRequest } from '~/store/modules/orders/actions'
 import { getDeliverymenRequest } from '~/store/modules/deliverymen/actions'
 import { getRecipientsRequest } from '~/store/modules/recipients/actions'
 
-const RegisterDeliveries = () => {
+const RegisterDeliveryman = () => {
   const recipientsList = useSelector(state =>
     state.recipients.list?.map(item => ({ value: item.id, label: item.name }))
   )
@@ -97,4 +97,4 @@ const RegisterDeliveries = () => {
   )
 }
 
-export default RegisterDeliveries
+export default RegisterDeliveryman

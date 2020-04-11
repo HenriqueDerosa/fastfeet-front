@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { MdKeyboardArrowLeft, MdDone } from 'react-icons/md'
 import Button from '~/components/Button'
 import colors from '~/styles/colors'
-import { URL } from '~/utils/constants'
 
 import { Container } from './styles'
 

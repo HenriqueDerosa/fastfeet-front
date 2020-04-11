@@ -17,11 +17,6 @@ export function* signIn({ payload }) {
 
     const { token, user } = response.data
 
-    if (!user.admin) {
-      toast.error('Usuário não permitido')
-      return
-    }
-
     api.defaults.headers.Authorization = `Bearer ${token}`
 
     yield put(signInSuccess(token, user))

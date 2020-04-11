@@ -5,10 +5,11 @@ export const URL = {
   DELIVERYMEN: '/entregadores',
   RECIPIENTS: '/destinatarios',
   PROBLEMS: '/problemas',
-  PROFILE: '/profile',
 
   REGISTER_DELIVERIES: '/encomendas/novo',
   REGISTER_DELIVERYMAN: '/entregadores/novo',
+  REGISTER_RECIPIENTS: '/destinatarios/novo',
+  REGISTER_PROBLEMS: '/problemas/novo',
 }
 
 export const ORDER_STATUS = {

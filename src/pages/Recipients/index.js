@@ -10,6 +10,7 @@ import Table from '../../components/Table'
 import { getRecipientsRequest } from '~/store/modules/recipients/actions'
 import ActionsButton from '~/components/ActionsButton'
 import { toPad2 } from '~/utils/strings'
+import { URL } from '~/utils/constants'
 
 const columnNames = ['ID', 'Nome', 'Endereço']
 
@@ -78,7 +79,7 @@ export default function Dashboard() {
           placeholder="Buscar por destinatários"
           icon={MdSearch}
         />
-        <Button>
+        <Button to={URL.REGISTER_RECIPIENTS}>
           <MdAdd size={18} color="white" />
           Cadastrar
         </Button>
