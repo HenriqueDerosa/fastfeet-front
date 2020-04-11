@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react'
 import { MdMoreHoriz } from 'react-icons/md'
 
-import { Button } from './styles'
+import { Button, Container } from './styles'
 import colors from '~/styles/colors'
 import Tooltip from '../Tooltip'
 
@@ -13,9 +13,11 @@ export default function ActionsButton() {
   }, [])
 
   return (
-    <Button onClick={handleClick}>
-      <MdMoreHoriz size={24} color={colors.silver} />
+    <Container>
+      <Button onClick={handleClick}>
+        <MdMoreHoriz size={24} color={colors.silver} />
+      </Button>
       {active && <Tooltip />}
-    </Button>
+    </Container>
   )
 }
