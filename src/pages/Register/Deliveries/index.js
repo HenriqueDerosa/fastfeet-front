@@ -6,7 +6,10 @@ import { Container, Content } from './styles'
 import TextField from '~/components/TextField'
 import { URL } from '~/utils/constants'
 import Header from '../Header'
-import { createOrderRequest } from '~/store/modules/orders/actions'
+import {
+  createOrderRequest,
+  updateOrderRequest,
+} from '~/store/modules/orders/actions'
 import { getDeliverymenRequest } from '~/store/modules/deliverymen/actions'
 import { getRecipientsRequest } from '~/store/modules/recipients/actions'
 import history from '~/services/history'
@@ -51,7 +54,20 @@ const RegisterDeliveries = () => {
 
   const handleSave = useCallback(() => {
     if (editData) {
-      // dispatch(updateOrderRequest(data))
+      const {
+        product,
+        recipientId: recipient,
+        deliverymanId: deliveryman,
+      } = data
+
+      dispatch(
+        updateOrderRequest({
+          id: history.location.state.id,
+          product,
+          recipient,
+          deliveryman,
+        })
+      )
     } else {
       dispatch(createOrderRequest(data))
     }

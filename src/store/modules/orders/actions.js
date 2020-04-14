@@ -23,6 +23,21 @@ export function createOrderSuccess(order) {
     payload: order,
   }
 }
+
+export function updateOrderRequest(payload) {
+  return {
+    type: '@orders/UPDATE_ORDER_REQUEST',
+    payload,
+  }
+}
+
+export function updateOrderSuccess(order) {
+  return {
+    type: '@orders/UPDATE_ORDER_SUCCESS',
+    payload: order,
+  }
+}
+
 export function deleteOrderRequest(id) {
   return {
     type: '@orders/DELETE_ORDER_REQUEST',

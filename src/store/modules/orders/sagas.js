@@ -7,6 +7,7 @@ import api from '~/services/api'
 import {
   getOrdersSuccess,
   createOrderSuccess,
+  updateOrderSuccess,
   deleteOrderSuccess,
 } from './actions'
 import { GENERIC_ERROR_MESSAGE } from '~/utils/constants'
@@ -35,6 +36,25 @@ export function* createOrderRequest({ payload }) {
     toast.error(GENERIC_ERROR_MESSAGE)
   }
 }
+
+export function* updateOrderRequest({ payload }) {
+  try {
+    const response = yield call(
+      api.put,
+      `order/${payload.id}`,
+      decamelizeKeys(payload)
+    )
+    const order = response.data
+
+    toast.success('Dados atualizados com sucesso')
+    history.goBack()
+
+    yield put(updateOrderSuccess(order))
+  } catch (err) {
+    toast.error(GENERIC_ERROR_MESSAGE)
+  }
+}
+
 export function* deleteOrderRequest({ payload: id }) {
   try {
     yield call(api.delete, `order/${id}`)
@@ -60,5 +80,6 @@ export default all([
   takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@orders/GET_ORDERS_REQUEST', getOrdersRequest),
   takeLatest('@orders/CREATE_ORDER_REQUEST', createOrderRequest),
+  takeLatest('@orders/UPDATE_ORDER_REQUEST', updateOrderRequest),
   takeLatest('@orders/DELETE_ORDER_REQUEST', deleteOrderRequest),
 ])
