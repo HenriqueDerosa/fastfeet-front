@@ -1,12 +1,9 @@
 import React, { useCallback, useRef, useState, useEffect, useMemo } from 'react'
-import PropTypes from 'prop-types'
-// import {useSelector, useDispatch} from 'react-redux'
-import { MdKeyboardArrowLeft, MdDone, MdImage } from 'react-icons/md'
+import { MdImage } from 'react-icons/md'
 import { useField } from '@rocketseat/unform'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Content, Image } from './styles'
-import Button from '~/components/Button'
 import TextField from '~/components/TextField'
 import colors from '~/styles/colors'
 import { URL } from '~/utils/constants'
@@ -26,8 +23,8 @@ const RegisterDeliveryman = () => {
 
   const dispatch = useDispatch()
   const imgRef = useRef(null)
-  const [file, setFile] = useState(defaultValue && defaultValue.id)
-  const [preview, setPreview] = useState(defaultValue && defaultValue.url)
+  const [file, setFile] = useState(defaultValue?.id)
+  const [preview, setPreview] = useState(defaultValue?.url)
   const [data, setData] = useState({
     name: '',
     email: '',

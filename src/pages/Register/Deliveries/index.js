@@ -92,18 +92,24 @@ const RegisterDeliveries = () => {
           <p>Destinatário</p>
           <Select
             name="recipientId"
+            placeholder="Procurar"
+            getOptionLabel={option => `${option.label}`}
+            getOptionValue={option => `${option.value}`}
             options={recipientsList}
             onChange={handleChangeSelect}
-            value={data.recipientId}
+            value={recipientsList?.find(e => e.value === data.recipientId)}
           />
         </div>
         <div className="deliveryman">
           <p>Entregador</p>
           <Select
             name="deliverymanId"
+            placeholder="Procurar"
+            getOptionLabel={option => `${option.label}`}
+            getOptionValue={option => `${option.value}`}
             options={deliverymenList}
             onChange={handleChangeSelect}
-            value={data.deliverymanId}
+            value={deliverymenList?.find(e => e.value === data.deliverymanId)}
           />
         </div>
         <div className="product">

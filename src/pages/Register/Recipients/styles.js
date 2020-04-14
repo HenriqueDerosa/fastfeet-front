@@ -11,9 +11,10 @@ export const Container = styled.section`
 export const Content = styled.section`
   display: grid;
   grid-template-areas:
-    'recipient deliveryman'
-    'product product';
-  grid-column-gap: 30px;
+    'name name name name name'
+    'address address address  number address2'
+    'city city city state zipcode ';
+  grid-column-gap: 12px;
   padding: 40px 28px;
   background: ${colors.white};
   border-radius: 4px;
@@ -24,13 +25,25 @@ export const Content = styled.section`
     margin: 8px 0;
   }
 
-  .recipient {
-    grid-area: recipient;
+  .name {
+    grid-area: name;
   }
-  .deliveryman {
-    grid-area: deliveryman;
+  .address {
+    grid-area: address;
   }
-  .product {
-    grid-area: product;
+  .address2 {
+    grid-area: address2;
+  }
+  .number {
+    grid-area: number;
+  }
+  .state {
+    grid-area: state;
+  }
+  .city {
+    grid-area: city;
+  }
+  .zipcode {
+    grid-area: zipcode;
   }
 `
