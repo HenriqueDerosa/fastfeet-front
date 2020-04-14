@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { MdKeyboardArrowLeft, MdDone, MdImage } from 'react-icons/md'
 import { useField } from '@rocketseat/unform'
 
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Container, Content, Image } from './styles'
 import Button from '~/components/Button'
 import TextField from '~/components/TextField'
@@ -13,9 +13,16 @@ import { URL } from '~/utils/constants'
 import { createDeliverymanRequest } from '~/store/modules/deliverymen/actions'
 import api from '~/services/api'
 import Header from '../Header'
+import history from '~/services/history'
 
 const RegisterDeliveryman = () => {
   const { defaultValue, registerField } = useField('avatar')
+
+  const editData = useSelector(
+    state =>
+      history.location.state?.id &&
+      state.deliverymen?.list?.find(i => i.id === history.location.state.id)
+  )
 
   const dispatch = useDispatch()
   const imgRef = useRef(null)
@@ -25,6 +32,16 @@ const RegisterDeliveryman = () => {
     name: '',
     email: '',
   })
+
+  useEffect(() => {
+    if (editData) {
+      const { name, email } = editData
+      setData({
+        name,
+        email,
+      })
+    }
+  }, [editData])
 
   useEffect(() => {
     if (imgRef.current) {
@@ -37,8 +54,12 @@ const RegisterDeliveryman = () => {
   }, [registerField])
 
   const handleSave = useCallback(() => {
-    dispatch(createDeliverymanRequest(data))
-  }, [data, dispatch])
+    if (editData) {
+      // dispatch(updateDeliverymanRequest(data))
+    } else {
+      dispatch(createDeliverymanRequest(data))
+    }
+  }, [data, dispatch, editData])
 
   const handleChangeFields = useCallback(
     event => {
@@ -86,7 +107,7 @@ const RegisterDeliveryman = () => {
   return (
     <Container>
       <Header
-        title="Cadastro de entregadores"
+        title={editData ? 'Edição de entregador' : 'Cadastro de entregadores'}
         handleSave={handleSave}
         backLink={URL.DELIVERYMEN}
       />

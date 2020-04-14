@@ -7,6 +7,7 @@ import TextField from '~/components/TextField'
 import { URL } from '~/utils/constants'
 import Header from '../Header'
 import { createRecipientRequest } from '~/store/modules/recipients/actions'
+import history from '~/services/history'
 
 const RegisterRecipients = () => {
   const dispatch = useDispatch()
@@ -20,9 +21,34 @@ const RegisterRecipients = () => {
     zipcode: null,
   })
 
+  const editData = useSelector(
+    state =>
+      history.location.state?.id &&
+      state.recipients?.list?.find(i => i.id === history.location.state.id)
+  )
+
+  useEffect(() => {
+    if (editData) {
+      const { name, address, number, address2, state, city, zipcode } = editData
+      setData({
+        name,
+        address,
+        number,
+        address2,
+        state,
+        city,
+        zipcode,
+      })
+    }
+  }, [editData])
+
   const handleSave = useCallback(() => {
-    dispatch(createRecipientRequest(data))
-  }, [data, dispatch])
+    if (editData) {
+      // dispatch(updateRecipientRequest(data))
+    } else {
+      dispatch(createRecipientRequest(data))
+    }
+  }, [data, dispatch, editData])
 
   const handleChangeFields = useCallback(
     event => {
@@ -67,7 +93,9 @@ const RegisterRecipients = () => {
   return (
     <Container>
       <Header
-        title="Cadastro de encomendas"
+        title={
+          editData ? 'Edição de destinatário' : 'Cadastro de destinatários'
+        }
         handleSave={handleSave}
         backLink={URL.ORDERS}
         saveCondition={data.deliverymanId && data.product && data.recipientId}

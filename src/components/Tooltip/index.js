@@ -39,7 +39,19 @@ const Tooltip = ({ id }) => {
           </>
         ),
         onClick: () => {
-          console.log('yey')
+          const data = {
+            url: '',
+            state: { id },
+          }
+          if (pathname === URL.ORDERS) {
+            data.url = URL.REGISTER_DELIVERIES
+          } else if (pathname === URL.DELIVERYMEN) {
+            data.url = URL.REGISTER_DELIVERYMAN
+          } else {
+            data.url = URL.REGISTER_RECIPIENTS
+          }
+
+          history.push(data.url, data.state)
         },
       },
       {

@@ -5,7 +5,7 @@ import { Container } from './styles'
 import colors from '~/styles/colors'
 import { ORDER_STATUS } from '~/utils/constants'
 
-export default function Status({ startDate, endDate }) {
+const Status = ({ startDate, endDate }) => {
   const statusId = useMemo(() => {
     if (isPast(new Date(startDate))) {
       return ORDER_STATUS.PENDING
@@ -36,6 +36,13 @@ export default function Status({ startDate, endDate }) {
 }
 
 Status.propTypes = {
-  startDate: PropTypes.string.isRequired,
-  endDate: PropTypes.string.isRequired,
+  startDate: PropTypes.string,
+  endDate: PropTypes.string,
 }
+
+Status.defaultProps = {
+  startDate: null,
+  endDate: null,
+}
+
+export default Status

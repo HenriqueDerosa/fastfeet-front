@@ -9,6 +9,7 @@ import Header from '../Header'
 import { createOrderRequest } from '~/store/modules/orders/actions'
 import { getDeliverymenRequest } from '~/store/modules/deliverymen/actions'
 import { getRecipientsRequest } from '~/store/modules/recipients/actions'
+import history from '~/services/history'
 
 const RegisterDeliveries = () => {
   const recipientsList = useSelector(state =>
@@ -19,6 +20,13 @@ const RegisterDeliveries = () => {
   )
 
   const dispatch = useDispatch()
+
+  const editData = useSelector(
+    state =>
+      history.location.state?.id &&
+      state.orders?.list?.find(i => i.id === history.location.state.id)
+  )
+
   const [data, setData] = useState({
     recipientId: null,
     deliverymanId: null,
@@ -26,13 +34,28 @@ const RegisterDeliveries = () => {
   })
 
   useEffect(() => {
+    if (editData) {
+      const { recipientId, deliverymanId, product } = editData
+      setData({
+        recipientId,
+        deliverymanId,
+        product,
+      })
+    }
+  }, [editData])
+
+  useEffect(() => {
     dispatch(getRecipientsRequest())
     dispatch(getDeliverymenRequest())
   }, [dispatch])
 
   const handleSave = useCallback(() => {
-    dispatch(createOrderRequest(data))
-  }, [data, dispatch])
+    if (editData) {
+      // dispatch(updateOrderRequest(data))
+    } else {
+      dispatch(createOrderRequest(data))
+    }
+  }, [data, dispatch, editData])
 
   const handleChangeFields = useCallback(
     event => {
@@ -58,7 +81,7 @@ const RegisterDeliveries = () => {
   return (
     <Container>
       <Header
-        title="Cadastro de encomendas"
+        title={editData ? 'Edição de encomenda' : 'Cadastro de encomendas'}
         handleSave={handleSave}
         backLink={URL.ORDERS}
         saveCondition={data.deliverymanId && data.product && data.recipientId}

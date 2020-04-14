@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react'
+import React, { useMemo, useEffect, useState, useCallback } from 'react'
 import { MdAdd, MdSearch } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import TextField from '~/components/TextField'
@@ -13,6 +13,7 @@ import { toPad2 } from '~/utils/strings'
 import Avatar from '~/components/Avatar'
 import Status from './Status'
 import { URL } from '~/utils/constants'
+import { filterList } from '~/utils/helpers'
 
 const columnNames = [
   'ID',
@@ -25,8 +26,13 @@ const columnNames = [
 
 export default function Dashboard() {
   const dispatch = useDispatch()
+  const [search, setSearch] = useState('')
 
   const orders = useSelector(state => state.orders.list)
+
+  const handleSearch = useCallback(event => {
+    setSearch(event.target.value)
+  }, [])
 
   useEffect(() => {
     dispatch(getOrdersRequest())
@@ -51,10 +57,12 @@ export default function Dashboard() {
     [orders]
   )
 
+  const list = useMemo(() => filterList(search, data), [data, search])
+
   const row = useMemo(
     () => (
       <>
-        {data?.map(item => (
+        {list?.map(item => (
           <tr key={item.id}>
             <td> #{toPad2(item.id)} </td>
             <td> {item.recipient} </td>
@@ -77,7 +85,7 @@ export default function Dashboard() {
         ))}
       </>
     ),
-    [data]
+    [list]
   )
 
   if (!orders) return <Loading />
@@ -92,6 +100,7 @@ export default function Dashboard() {
         <TextField
           name="search"
           type="text"
+          onChange={handleSearch}
           placeholder="Buscar por encomendas"
           icon={MdSearch}
         />
