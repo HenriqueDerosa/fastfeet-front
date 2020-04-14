@@ -14,6 +14,7 @@ import Avatar from '~/components/Avatar'
 import Status from './Status'
 import { URL } from '~/utils/constants'
 import { filterList } from '~/utils/helpers'
+import Modal from '~/components/Modal'
 
 const columnNames = [
   'ID',
@@ -26,9 +27,10 @@ const columnNames = [
 
 export default function Dashboard() {
   const dispatch = useDispatch()
-  const [search, setSearch] = useState('')
-
   const orders = useSelector(state => state.orders.list)
+
+  const [search, setSearch] = useState('')
+  const [detailModal, setDetailModal] = useState(false)
 
   const handleSearch = useCallback(event => {
     setSearch(event.target.value)
@@ -59,6 +61,14 @@ export default function Dashboard() {
 
   const list = useMemo(() => filterList(search, data), [data, search])
 
+  const showDetails = useCallback(id => {
+    setDetailModal({ show: true, id })
+  }, [])
+
+  const closeModal = useCallback(() => {
+    setDetailModal(false)
+  }, [])
+
   const row = useMemo(
     () => (
       <>
@@ -79,14 +89,42 @@ export default function Dashboard() {
               <Status startDate={item.startDate} endDate={item.endDate} />
             </td>
             <td>
-              <ActionsButton id={item.id} />
+              <ActionsButton id={item.id} showDetails={showDetails} />
             </td>
           </tr>
         ))}
       </>
     ),
-    [list]
+    [list, showDetails]
   )
+
+  const selectedItem = useMemo(() => {
+    const selected = orders?.find(i => i.id === detailModal.id)
+
+    return (
+      <>
+        <strong>Informações da encomenda</strong>
+        <p>{selected?.recipient.address}</p>
+        <p>
+          {selected?.recipient.city} - {selected?.recipient.state}
+        </p>
+        <p>{selected?.recipient.zipcode}</p>
+        <hr />
+        <strong>Datas</strong>
+        <p>
+          <strong>Retirada: </strong>
+          {selected?.startDate || ' - '}
+        </p>
+        <p>
+          <strong>Entrega: </strong>
+          {selected?.endDate || ' - '}
+        </p>
+        <hr />
+        <strong>Assinatura do destinatário</strong>
+        <img src={selected?.signature?.url} alt={selected?.name} />
+      </>
+    )
+  }, [detailModal.id, orders])
 
   if (!orders) return <Loading />
 
@@ -109,6 +147,7 @@ export default function Dashboard() {
           Cadastrar
         </Button>
       </section>
+      {detailModal && <Modal closeEvent={closeModal}>{selectedItem}</Modal>}
       <Table columnNames={columnNames} row={row} empty={orders.length < 1} />
     </Container>
   )

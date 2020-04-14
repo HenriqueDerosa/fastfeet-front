@@ -6,8 +6,13 @@ import { Button, Container } from './styles'
 import colors from '~/styles/colors'
 import Tooltip from '../Tooltip'
 
-const ActionsButton = ({ id }) => {
+const ActionsButton = ({ id, showDetails }) => {
   const [active, setActive] = useState(false)
+
+  const handleView = useCallback(() => {
+    showDetails(id)
+    setActive(false)
+  }, [id, showDetails])
 
   const handleClick = useCallback(() => {
     setActive(prev => !prev)
@@ -18,13 +23,17 @@ const ActionsButton = ({ id }) => {
       <Button onClick={handleClick}>
         <MdMoreHoriz size={24} color={colors.silver} />
       </Button>
-      {active && <Tooltip id={id} />}
+      {active && <Tooltip id={id} showDetails={handleView} />}
     </Container>
   )
 }
 
 ActionsButton.propTypes = {
   id: PropTypes.number.isRequired,
+  showDetails: PropTypes.func,
+}
+ActionsButton.defaultProps = {
+  showDetails: null,
 }
 
 export default ActionsButton

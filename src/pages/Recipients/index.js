@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react'
+import React, { useMemo, useEffect, useState, useCallback } from 'react'
 import { MdAdd, MdSearch } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import TextField from '~/components/TextField'
@@ -11,6 +11,7 @@ import { getRecipientsRequest } from '~/store/modules/recipients/actions'
 import ActionsButton from '~/components/ActionsButton'
 import { toPad2 } from '~/utils/strings'
 import { URL } from '~/utils/constants'
+import { filterList } from '~/utils/helpers'
 
 const columnNames = ['ID', 'Nome', 'Endereço']
 
@@ -18,6 +19,12 @@ export default function Dashboard() {
   const dispatch = useDispatch()
 
   const recipients = useSelector(state => state.recipients.list)
+
+  const [search, setSearch] = useState('')
+
+  const handleSearch = useCallback(event => {
+    setSearch(event.target.value)
+  }, [])
 
   useEffect(() => {
     dispatch(getRecipientsRequest())
@@ -45,10 +52,12 @@ export default function Dashboard() {
     [recipients]
   )
 
+  const list = useMemo(() => filterList(search, data), [data, search])
+
   const row = useMemo(
     () => (
       <>
-        {data?.map(item => (
+        {list?.map(item => (
           <tr key={item.id}>
             <td> #{toPad2(item.id)} </td>
             <td> {item.name} </td>
@@ -60,7 +69,7 @@ export default function Dashboard() {
         ))}
       </>
     ),
-    [data]
+    [list]
   )
 
   if (!recipients) return <Loading />
@@ -75,6 +84,7 @@ export default function Dashboard() {
         <TextField
           name="search"
           type="text"
+          onChange={handleSearch}
           placeholder="Buscar por destinatários"
           icon={MdSearch}
         />

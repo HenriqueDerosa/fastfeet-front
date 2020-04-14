@@ -9,6 +9,6 @@ export const filterList = (text, list) => {
       i => typeof i === 'string' && clearString(i)
     )
 
-    return !text ? item : values[1].indexOf(search) > -1
+    return values.join().indexOf(search) > -1
   })
 }

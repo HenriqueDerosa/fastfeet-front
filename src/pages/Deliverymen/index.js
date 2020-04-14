@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react'
+import React, { useMemo, useEffect, useState, useCallback } from 'react'
 import { MdAdd, MdSearch } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import TextField from '~/components/TextField'
@@ -12,10 +12,16 @@ import { getDeliverymenRequest } from '~/store/modules/deliverymen/actions'
 import ActionsButton from '~/components/ActionsButton'
 import { toPad2 } from '~/utils/strings'
 import { URL } from '~/utils/constants'
+import { filterList } from '~/utils/helpers'
 
 export default function Dashboard() {
   const dispatch = useDispatch()
 
+  const [search, setSearch] = useState('')
+
+  const handleSearch = useCallback(event => {
+    setSearch(event.target.value)
+  }, [])
   const deliverymen = useSelector(state => state.deliverymen.list)
 
   useEffect(() => {
@@ -39,10 +45,12 @@ export default function Dashboard() {
     [deliverymen]
   )
 
+  const list = useMemo(() => filterList(search, data), [data, search])
+
   const row = useMemo(
     () => (
       <>
-        {data?.map(item => (
+        {list?.map(item => (
           <tr key={item.id}>
             <td> #{toPad2(item.id)} </td>
             <td>
@@ -57,7 +65,7 @@ export default function Dashboard() {
         ))}
       </>
     ),
-    [data]
+    [list]
   )
 
   if (!deliverymen) return <Loading />
@@ -72,6 +80,7 @@ export default function Dashboard() {
         <TextField
           name="search"
           type="text"
+          onChange={handleSearch}
           placeholder="Buscar por entregadores"
           icon={MdSearch}
         />

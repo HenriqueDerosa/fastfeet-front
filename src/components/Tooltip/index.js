@@ -12,7 +12,7 @@ import { deleteDeliverymenRequest } from '~/store/modules/deliverymen/actions'
 import { deleteRecipientRequest } from '~/store/modules/recipients/actions'
 import { cancelOrderRequest } from '~/store/modules/problems/actions'
 
-const Tooltip = ({ id }) => {
+const Tooltip = ({ id, showDetails }) => {
   const dispatch = useDispatch()
   const { pathname } = history.location
 
@@ -27,7 +27,7 @@ const Tooltip = ({ id }) => {
             <p>Visualizar</p>
           </>
         ),
-        onClick: () => {},
+        onClick: showDetails,
       },
       {
         id: 'edit',
@@ -87,7 +87,7 @@ const Tooltip = ({ id }) => {
         },
       },
     ],
-    [dispatch, id, pathname]
+    [dispatch, id, pathname, showDetails]
   )
 
   const availableOptions = useMemo(
@@ -113,6 +113,10 @@ const Tooltip = ({ id }) => {
 
 Tooltip.propTypes = {
   id: PropTypes.number.isRequired,
+  showDetails: PropTypes.func,
+}
+Tooltip.defaultProps = {
+  showDetails: null,
 }
 
 export default Tooltip

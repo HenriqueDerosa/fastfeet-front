@@ -35,10 +35,10 @@ const RegisterDeliveries = () => {
 
   useEffect(() => {
     if (editData) {
-      const { recipientId, deliverymanId, product } = editData
+      const { recipient, deliveryman, product } = editData
       setData({
-        recipientId,
-        deliverymanId,
+        recipientId: recipient.id,
+        deliverymanId: deliveryman.id,
         product,
       })
     }
