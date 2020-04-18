@@ -1,5 +1,4 @@
 import React, { useCallback, useState, useEffect, useMemo } from 'react'
-import Select from 'react-select'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Content } from './styles'

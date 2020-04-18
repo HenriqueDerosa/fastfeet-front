@@ -23,16 +23,16 @@ const Status = ({ startDate, endDate, canceledAt }) => {
 
   const status = useMemo(() => {
     const color = colors.status[statusId]
-    console.log(color === undefined ? statusId : color)
+
     switch (statusId) {
       case ORDER_STATUS.DELIVERED:
-        return { color: colors.status[statusId], label: 'Entregue' }
+        return { color, label: 'Entregue' }
       case ORDER_STATUS.WITHDRAWN:
-        return { color: colors.status[statusId], label: 'Retirada' }
+        return { color, label: 'Retirada' }
       case ORDER_STATUS.canceled:
-        return { color: colors.status[statusId], label: 'Cancelada' }
+        return { color, label: 'Cancelada' }
       default:
-        return { color: colors.status[statusId], label: 'Pendente' }
+        return { color, label: 'Pendente' }
     }
   }, [statusId])
 

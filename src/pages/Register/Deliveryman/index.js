@@ -26,6 +26,7 @@ const RegisterDeliveryman = () => {
 
   const dispatch = useDispatch()
   const imgRef = useRef(null)
+  // eslint-disable-next-line no-unused-vars
   const [file, setFile] = useState(defaultValue?.id)
   const [preview, setPreview] = useState(
     editData?.avatar?.url || defaultValue?.url
@@ -37,7 +38,6 @@ const RegisterDeliveryman = () => {
 
   useEffect(() => {
     if (editData) {
-      console.log(editData)
       const { name, email } = editData
       setData({
         name,
