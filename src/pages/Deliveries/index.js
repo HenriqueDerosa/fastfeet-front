@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import TextField from '~/components/TextField'
 import Loading from '~/components/Loading'
 
-import { Container } from './styles'
+import { Container, Signature } from './styles'
 import Button from '~/components/Button'
 import Table from '../../components/Table'
 import { getOrdersRequest } from '~/store/modules/orders/actions'
@@ -43,7 +43,14 @@ export default function Dashboard() {
   const data = useMemo(
     () =>
       orders?.map(order => {
-        const { id, recipient, deliveryman, startDate, endDate } = order
+        const {
+          id,
+          recipient,
+          deliveryman,
+          startDate,
+          endDate,
+          canceledAt,
+        } = order
 
         return {
           id,
@@ -54,6 +61,7 @@ export default function Dashboard() {
           state: recipient.state,
           startDate,
           endDate,
+          canceledAt,
         }
       }),
     [orders]
@@ -86,7 +94,11 @@ export default function Dashboard() {
             <td> {item.city} </td>
             <td> {item.state} </td>
             <td>
-              <Status startDate={item.startDate} endDate={item.endDate} />
+              <Status
+                startDate={item.startDate}
+                endDate={item.endDate}
+                canceledAt={item.canceledAt}
+              />
             </td>
             <td>
               <ActionsButton id={item.id} showDetails={showDetails} />
@@ -121,7 +133,11 @@ export default function Dashboard() {
         </p>
         <hr />
         <strong>Assinatura do destinatário</strong>
-        <img src={selected?.signature?.url} alt={selected?.name} />
+        {selected?.signature?.url ? (
+          <Signature src={selected?.signature?.url} alt={selected?.name} />
+        ) : (
+          <p>Pendente</p>
+        )}
       </>
     )
   }, [detailModal.id, orders])

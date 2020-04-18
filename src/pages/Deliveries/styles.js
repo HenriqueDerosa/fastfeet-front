@@ -1,4 +1,12 @@
 import styled from 'styled-components'
+import colors from '~/styles/colors'
+
+export const Signature = styled.img`
+  margin: auto;
+  padding: 2px;
+  width: 50%;
+  border: 1px solid ${colors.gallery};
+`
 
 export const Container = styled.div`
   max-width: 1200px;

@@ -75,6 +75,7 @@ const RegisterDeliveryman = () => {
       const { files } = event.target
 
       formData.append('file', files[0])
+      console.log(files)
 
       const response = await api.post('files', formData)
       const { id, url } = response.data

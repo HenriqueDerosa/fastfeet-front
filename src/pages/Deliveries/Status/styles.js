@@ -3,7 +3,7 @@ import { transparentize } from 'polished'
 
 export const Container = styled.div`
   padding: 4px 12px;
-  max-width: 110px;
+  max-width: 140px;
   border-radius: 12px;
   background: ${props => transparentize(0.82, `${props.color}`)};
   color: ${props => props.color};

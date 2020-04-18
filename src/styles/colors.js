@@ -21,7 +21,7 @@ const colors = {
     [ORDER_STATUS.DELIVERED]: '#2CA42B',
     [ORDER_STATUS.PENDING]: '#C1BC35',
     [ORDER_STATUS.WITHDRAWN]: '#4D85EE',
-    [ORDER_STATUS.CANCELLED]: '#DE3B3B',
+    [ORDER_STATUS.canceled]: '#DE3B3B',
   },
 }
 

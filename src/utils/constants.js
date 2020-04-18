@@ -17,5 +17,5 @@ export const ORDER_STATUS = {
   PROGRESS: 'progress',
   DELIVERED: 'delivered',
   WITHDRAWN: 'withdrawn',
-  CANCELLED: 'cancelled',
+  canceled: 'canceled',
 }
