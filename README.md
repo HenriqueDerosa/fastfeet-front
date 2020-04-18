@@ -1,5 +1,7 @@
 # Fastfeet Web
 
+Developed with ♡ for Rocketseat Challenge of Bootcamp GoStack
+
 # Getting started
 
 1. after cloning the repository, use `yarn` to download dependencies
@@ -46,3 +48,5 @@ As an actual conclusion I would say, regarding web development with React JS, I 
 ```
 [context-api, testing, immer vs immutable, reactotron vs redux-devtools, redux-saga, redux-persist]
 ```
+
+# Thanks, 🚀seat 🥳
