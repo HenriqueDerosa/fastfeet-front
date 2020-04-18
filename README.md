@@ -12,7 +12,9 @@ To run the application properly, run the docker containers and the backend befor
 
 #### Extra
 
-**Storybook →** I've implemented Storybook for the application, it's not with all the used components, although it's implemented with some plugins, as well. I did that during a goal I had in my current job, to implement the Storybook in our Boilerplate, then I started trying to do it in this project.
+**Humps →** used humps to keep the javascript camelCase pattern
+
+**Storybook →** implemented Storybook for the application, it's not with all the used components, although it's implemented with some plugins, as well. I did that during a goal I had in my current job, to implement the Storybook in our Boilerplate, then I started trying to do it in this project.
 
 # What is the briefing
 
