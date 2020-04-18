@@ -1,4 +1,5 @@
 import { takeLatest, call, put, all } from 'redux-saga/effects'
+import humps from 'humps'
 import { toast } from 'react-toastify'
 
 import api from '~/services/api'
@@ -7,6 +8,7 @@ import {
   getDeliverymenSuccess,
   createDeliverymanSuccess,
   deleteDeliverymenSuccess,
+  updateDeliverymanSuccess,
 } from './actions'
 import { GENERIC_ERROR_MESSAGE } from '~/utils/constants'
 import history from '~/services/history'
@@ -30,6 +32,23 @@ export function* createDeliverymanRequest({ payload }) {
     history.goBack()
 
     yield put(createDeliverymanSuccess(deliveryman))
+  } catch (err) {
+    toast.error(GENERIC_ERROR_MESSAGE)
+  }
+}
+export function* updateDeliverymanRequest({ payload }) {
+  try {
+    const response = yield call(
+      api.put,
+      `deliverymen/${payload.id}`,
+      humps.decamelizeKeys(payload.data)
+    )
+    const deliveryman = response.data
+
+    toast.success('Entregador atualizado com sucesso')
+    history.goBack()
+
+    yield put(updateDeliverymanSuccess(deliveryman))
   } catch (err) {
     toast.error(GENERIC_ERROR_MESSAGE)
   }
@@ -61,6 +80,10 @@ export default all([
   takeLatest(
     '@deliverymen/CREATE_DELIVERYMAN_REQUEST',
     createDeliverymanRequest
+  ),
+  takeLatest(
+    '@deliverymen/UPDATE_DELIVERYMAN_REQUEST',
+    updateDeliverymanRequest
   ),
   takeLatest(
     '@deliverymen/DELETE_DELIVERYMEN_REQUEST',

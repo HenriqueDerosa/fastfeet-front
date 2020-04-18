@@ -11,6 +11,19 @@ export function createDeliverymanSuccess(deliveryman) {
     payload: deliveryman,
   }
 }
+export function updateDeliverymanRequest({ id, data }) {
+  return {
+    type: '@deliverymen/UPDATE_DELIVERYMAN_REQUEST',
+    payload: { id, data },
+  }
+}
+
+export function updateDeliverymanSuccess(deliveryman) {
+  return {
+    type: '@deliverymen/UPDATE_DELIVERYMAN_SUCCESS',
+    payload: deliveryman,
+  }
+}
 
 export function getDeliverymenRequest() {
   return {

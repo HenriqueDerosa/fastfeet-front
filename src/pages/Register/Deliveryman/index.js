@@ -7,7 +7,10 @@ import { Container, Content, Image } from './styles'
 import TextField from '~/components/TextField'
 import colors from '~/styles/colors'
 import { URL } from '~/utils/constants'
-import { createDeliverymanRequest } from '~/store/modules/deliverymen/actions'
+import {
+  createDeliverymanRequest,
+  updateDeliverymanRequest,
+} from '~/store/modules/deliverymen/actions'
 import api from '~/services/api'
 import Header from '../Header'
 import history from '~/services/history'
@@ -24,7 +27,9 @@ const RegisterDeliveryman = () => {
   const dispatch = useDispatch()
   const imgRef = useRef(null)
   const [file, setFile] = useState(defaultValue?.id)
-  const [preview, setPreview] = useState(defaultValue?.url)
+  const [preview, setPreview] = useState(
+    editData?.avatar?.url || defaultValue?.url
+  )
   const [data, setData] = useState({
     name: '',
     email: '',
@@ -32,6 +37,7 @@ const RegisterDeliveryman = () => {
 
   useEffect(() => {
     if (editData) {
+      console.log(editData)
       const { name, email } = editData
       setData({
         name,
@@ -52,7 +58,12 @@ const RegisterDeliveryman = () => {
 
   const handleSave = useCallback(() => {
     if (editData) {
-      // dispatch(updateDeliverymanRequest(data))
+      dispatch(
+        updateDeliverymanRequest({
+          id: history.location.state.id,
+          data,
+        })
+      )
     } else {
       dispatch(createDeliverymanRequest(data))
     }
@@ -75,12 +86,11 @@ const RegisterDeliveryman = () => {
       const { files } = event.target
 
       formData.append('file', files[0])
-      console.log(files)
 
       const response = await api.post('files', formData)
       const { id, url } = response.data
 
-      setData({ ...data, file: id })
+      setData({ ...data, avatarId: id })
       setPreview(url)
     },
     [data]
